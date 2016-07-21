@@ -1,0 +1,1 @@
+# PokemonGo Enhanced Frontend

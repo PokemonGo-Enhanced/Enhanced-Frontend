@@ -1,0 +1,18 @@
+.eslintrc
+.editorconfig
+.eslintignore
+.git
+.gitignore
+.reduxrc
+nodemon.json
+*.md
+*.xml
+
+# dirs
+./blueprints
+./scripts
+./build
+./src
+./tests
+./node_modules
+./coverage
