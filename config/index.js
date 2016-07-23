@@ -42,6 +42,7 @@ const config = {
     colors : true
   },
   compiler_vendor : [
+    'axios',
     'history',
     'react',
     'react-redux',

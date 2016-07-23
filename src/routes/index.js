@@ -8,7 +8,10 @@ import Main from './main';
 export const createRoutes = (store) => ({
   path: '/',
   component: CoreLayout,
-  indexRoute: Main
+  indexRoute: Main,
+  childRoutes: [
+
+  ]
 });
 
 /*  Note: childRoutes can be chunked or otherwise loaded programmatically

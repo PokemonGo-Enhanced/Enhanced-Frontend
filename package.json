@@ -35,7 +35,8 @@
       "command": "nodemon --exec babel-node bin/server",
       "env": {
         "NODE_ENV": "development",
-        "DEBUG": "app:*"
+        "DEBUG": "app:*",
+        "API_URL": "http://localhost:3000"
       }
     },
     "deploy": {
@@ -96,6 +97,7 @@
     "yargs": "^4.7.1"
   },
   "devDependencies": {
+    "axios": "^0.13.1",
     "babel-cli": "^6.10.1",
     "babel-core": "^6.10.4",
     "babel-eslint": "^6.1.2",

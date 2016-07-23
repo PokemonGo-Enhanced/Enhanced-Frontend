@@ -1,6 +1,10 @@
+import {
+  fullWhite
+} from 'material-ui/styles/colors';
+
 // definitions of project colors
 export const colors = {
-
+  mainBackground: fullWhite
 };
 
 // fonts helper
@@ -25,5 +29,10 @@ export const fonts = {
 
 // overwrite material-ui theme here
 export default {
+  palette: {
 
+  },
+  appBar: {
+    color: colors.mainBackground
+  }
 };
