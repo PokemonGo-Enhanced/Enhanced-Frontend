@@ -11,6 +11,7 @@ const app = new Koa();
 
 // Enable koa-proxy if it has been enabled in the config.
 if (config.proxy && config.proxy.enabled) {
+  debug('enabling proxy', config.proxy.options);
   const proxy = require('koa-proxy');
   app.use(convert(proxy(config.proxy.options)));
 }
@@ -22,7 +23,7 @@ app.use(compress());
 // (ignoring file requests). If you want to implement isomorphic
 // rendering, you'll want to remove this middleware.
 app.use(convert(historyApiFallback({
-  verbose: false
+  verbose: true
 })));
 
 // ------------------------------------
@@ -47,7 +48,6 @@ if (config.env === 'development') {
   // when the application is compiled.
   app.use(convert(serve(paths.client('static'))));
 } else {
-
   // Serving ~/dist by default. Ideally these files should be served by
   // the web server and not the app server, but this helps to demo the
   // server in production.

@@ -5,23 +5,46 @@ import { Grid, Cell } from 'radium-grid';
 export class PokemonList extends Component {
   static propTypes = {
     fetch: PropTypes.func.isRequired,
-    pokemons: PropTypes.array.isRequired
+    pokemons: PropTypes.array.isRequired,
+    loading: PropTypes.bool.isRequired,
+    loadingError: PropTypes.string
   };
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.fetch();
   }
 
+  renderLoading() {
+    return <Cell>Loading ~</Cell>;
+  }
+
+  renderPokemons() {
+    const pokemons = this.props.pokemons;
+    if (pokemons.length === 0) {
+      return (<Cell><h4>No Pokemons Fetched</h4></Cell>);
+    }
+
+    return pokemons.map(pokemon => (
+      <Cell key={pokemon.id}>
+        <h5>{pokemon.is_egg ? `Egg: ${pokemon.egg_km_walked_target}` : pokemon.pokemon_id}</h5>
+      </Cell>
+    ));
+  }
+
+  renderError() {
+    return <Cell>{this.props.loadingError}</Cell>;
+  }
+
   render() {
-    const { pokemons } = this.props;
+    const { loading, loadingError } = this.props;
 
     return (
       <Grid>
-        {pokemons.map(pokemon => (
-          <Cell key={pokemon.id}>
-            <h5>{pokemon.pokemon_id}</h5>
-          </Cell>
-        ))}
+        {loading
+          ? this.renderLoading()
+          : loadingError
+            ? this.renderError()
+            : this.renderPokemons()}
       </Grid>
     );
   }

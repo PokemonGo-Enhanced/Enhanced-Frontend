@@ -12,7 +12,7 @@ module.exports = {
     compiler_public_path: `http://${config.server_host}:${config.server_port}/`,
     compiler_devtool: 'cheap-module-eval-source-map',
     proxy: {
-      enabled: false,
+      enabled: true,
       options: {
         host: 'http://localhost:8000',
         match: /^\/api\/.*/

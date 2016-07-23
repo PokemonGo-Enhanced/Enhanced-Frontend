@@ -79,7 +79,8 @@ Edit at Your Own Risk
 // N.B.: globals added here must _also_ be added to .eslintrc
 config.globals = {
   'process.env'  : {
-    'NODE_ENV' : JSON.stringify(config.env)
+    'NODE_ENV' : JSON.stringify(config.env),
+    'API_URL'  : JSON.stringify(process.env.API_URL || `http://${config.server_host}:${config.server_port}`)
   },
   'NODE_ENV'     : config.env,
   '__DEV__'      : config.env === 'development',

@@ -13,10 +13,12 @@ export const fetchPokemons = createAction('@pokemons/fetch', () => (dispatch) =>
     .finally(() => dispatch(loaded()));
 });
 
+export const errorSelector = state => state.pokemons.error && state.pokemons.error.message;
+export const loadingSelector = state => state.pokemons.loading;
 export const pokemonSelector = state => state.pokemons.pokemons;
 export const pokemonsByDateSelector = createSelector(
   pokemonSelector,
-  pokemons => sortBy(pokemons, 'creation_time_ms')
+  pokemons => sortBy(pokemons, 'is_egg', 'creation_time_ms').reverse()
 );
 
 export const initialState = {
@@ -41,7 +43,7 @@ export const pokemonsReducer = handleActions({
     next: (state, { payload }) => ({
       ...state,
       error: null,
-      pokemons: keyBy(payload, 'id')
+      pokemons: keyBy(payload.data, 'id')
     }),
 
     throw: (state, action) => ({

@@ -1,10 +1,12 @@
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { pokemonsByDateSelector, fetchPokemons } from 'store/modules/pokemons';
+import { pokemonsByDateSelector, fetchPokemons, loadingSelector, errorSelector } from 'store/modules/pokemons';
 import PokemonList from 'components/PokemonList';
 
 const mapStateToProps = createStructuredSelector({
-  pokemons: pokemonsByDateSelector
+  pokemons: pokemonsByDateSelector,
+  loading: loadingSelector,
+  loadingError: errorSelector
 });
 
 const mapActionsToProps = {
