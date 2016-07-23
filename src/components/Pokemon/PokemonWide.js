@@ -4,7 +4,14 @@ import Card from 'material-ui/Card';
 
 export const PokemonWide = ({ pokemon, ...props }) => (
   <Card style={styles.container} zDepth={0}>
-    {pokemon.pokemon_id}
+    <div>{pokemon.id}</div>
+    <div>{pokemon.pokemon_id}</div>
+    <div>ATK {pokemon.individual_attack}/15</div>
+    <div>DEF {pokemon.individual_defense}/15</div>
+    <div>STA {pokemon.individual_stamina}/15</div>
+    <div>Move 1 {pokemon.move_1}</div>
+    <div>Move 1 {pokemon.move_2}</div>
+    <div>CP {pokemon.cp}</div>
   </Card>
 );
 
