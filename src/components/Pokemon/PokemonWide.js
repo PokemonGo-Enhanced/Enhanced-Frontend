@@ -1,10 +1,11 @@
 import React, { PropTypes } from 'react';
 import Radium from 'radium';
+import Card from 'material-ui/Card';
 
 export const PokemonWide = ({ pokemon, ...props }) => (
-  <div style={styles.container}>
+  <Card style={styles.container} zDepth={0}>
     {pokemon.pokemon_id}
-  </div>
+  </Card>
 );
 
 PokemonWide.propTypes = {
@@ -13,7 +14,9 @@ PokemonWide.propTypes = {
 
 const styles = {
   container: {
-    width: 300
+    width: 300,
+    height: 200,
+    marginBottom: 20
   }
 };
 

@@ -11,7 +11,8 @@ const coreStyles = (theme) => ({
     height: '100%',
     fontFamily: 'Work Sans, sans-serif',
     '-webkit-font-smoothing': 'antialiased',
-    ' -moz-osx-font-smoothing': 'grayscale'
+    ' -moz-osx-font-smoothing': 'grayscale',
+    background: '#efefef'
   },
   '*, *:before, *:after': {
     boxSizing: 'inherit'

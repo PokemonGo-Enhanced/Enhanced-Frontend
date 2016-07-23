@@ -5,7 +5,7 @@ import keyBy from 'lodash/keyBy';
 import sortBy from 'lodash/sortBy';
 
 export const loading = createAction('@pokemons/loading');
-export const loaded = createAction('@pokemons/loading');
+export const loaded = createAction('@pokemons/loaded');
 export const fetchPokemons = createAction('@pokemons/fetch', () => (dispatch) => {
   dispatch(loading());
   return http

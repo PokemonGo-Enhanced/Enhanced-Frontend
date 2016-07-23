@@ -19,6 +19,15 @@ export class PokemonList extends Component {
     return <Cell>Loading ~</Cell>;
   }
 
+  // hack to use space-between
+  renderSizingRow() {
+    const spacers = [];
+    for (let i = 0; i < 6; ++i) {
+      spacers.push(<Cell key={i}><div style={styles.cell} /></Cell>);
+    }
+    return spacers;
+  }
+
   renderPokemons() {
     const pokemons = this.props.pokemons;
     if (pokemons.length === 0) {
@@ -41,12 +50,20 @@ export class PokemonList extends Component {
     const { loading, loadingError } = this.props;
 
     return (
-      <Grid style={styles.grid}>
+      <Grid
+        style={styles.grid}
+        cellAlign="center"
+        smallCellWidth="1/2"
+        mediumCellWidth="1/3"
+        largeCellWidth="1/4"
+        xlargeCellWidth="1/6"
+      >
         {loading
           ? this.renderLoading()
           : loadingError
             ? this.renderError()
             : this.renderPokemons()}
+        {this.renderSizingRow()}
       </Grid>
     );
   }
@@ -54,7 +71,11 @@ export class PokemonList extends Component {
 
 const styles = {
   grid: {
-    justifyContent: 'flex-start'
+    justifyContent: 'space-around'
+  },
+  cell: {
+    height: 1,
+    width: 300
   }
 };
 
