@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Radium from 'radium';
 import { Grid, Cell } from 'radium-grid';
+import PokemonCell from 'components/PokemonCell';
 
 export class PokemonList extends Component {
   static propTypes = {
@@ -24,11 +25,12 @@ export class PokemonList extends Component {
       return (<Cell><h4>No Pokemons Fetched</h4></Cell>);
     }
 
-    return pokemons.map(pokemon => (
-      <Cell key={pokemon.id}>
-        <h5>{pokemon.is_egg ? `Egg: ${pokemon.egg_km_walked_target}` : pokemon.pokemon_id}</h5>
-      </Cell>
-    ));
+    return pokemons
+      .map(pokemon => (
+        <Cell key={pokemon.id}>
+          <PokemonCell pokemon={pokemon} />
+        </Cell>
+      ));
   }
 
   renderError() {
@@ -39,7 +41,7 @@ export class PokemonList extends Component {
     const { loading, loadingError } = this.props;
 
     return (
-      <Grid>
+      <Grid style={styles.grid}>
         {loading
           ? this.renderLoading()
           : loadingError
@@ -49,5 +51,11 @@ export class PokemonList extends Component {
     );
   }
 }
+
+const styles = {
+  grid: {
+    justifyContent: 'flex-start'
+  }
+};
 
 export default Radium(PokemonList);
