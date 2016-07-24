@@ -6,14 +6,17 @@ export const PokemonWide = ({ pokemon, ...props }) => (
   <Card style={styles.container} zDepth={0}>
     <div>{pokemon.id}</div>
     <div>{pokemon.pokemon_id}</div>
-    <div>ATK {pokemon.individual_attack}/15</div>
-    <div>DEF {pokemon.individual_defense}/15</div>
-    <div>STA {pokemon.individual_stamina}/15</div>
-    <div>Move 1 {pokemon.move_1}</div>
-    <div>Move 2 {pokemon.move_2}</div>
+    <div>Level {pokemon.stats.level}</div>
+    <div>Stardust & candies to max: {pokemon.stats.stardustToMax} / {pokemon.stats.candiesToMax}</div>
+    <div>
+      ATK {pokemon.individual_attack}/15
+      DEF {pokemon.individual_defense}/15
+      STA {pokemon.individual_stamina}/15
+    </div>
+    <div>{pokemon.stats.move_1.prettyName}: {pokemon.stats.move_1.power}, {pokemon.stats.move_1.type}</div>
+    <div>{pokemon.stats.move_2.prettyName}: {pokemon.stats.move_2.power}, {pokemon.stats.move_2.type}</div>
     <div>CP {pokemon.cp} / {pokemon.stats.maxCombatPower}</div>
-    <div>IV {pokemon.stats.powerQuotient}%</div>
-    <div>IV Influence {pokemon.stats.IVInfluence}</div>
+    <div>IV & Influence {pokemon.stats.powerQuotient}% | {pokemon.stats.IVInfluence}</div>
   </Card>
 );
 
