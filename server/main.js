@@ -23,7 +23,7 @@ app.use(compress());
 // (ignoring file requests). If you want to implement isomorphic
 // rendering, you'll want to remove this middleware.
 app.use(convert(historyApiFallback({
-  verbose: true
+  verbose: false
 })));
 
 // ------------------------------------
@@ -55,5 +55,9 @@ if (config.env === 'development') {
     maxage: 31536000000
   })));
 }
+
+app.use(convert(serve(paths.assets(), {
+  maxage: 31536000000
+})));
 
 module.exports = app;
