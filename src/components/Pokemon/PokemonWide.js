@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import Radium from 'radium';
 import Card from 'material-ui/Card';
 import Stats from 'components/Stats';
+import Move from 'components/Move';
 
 export const PokemonWide = ({ pokemon, ...props }) => (
   <Card style={styles.container} zDepth={0}>
@@ -19,8 +20,10 @@ export const PokemonWide = ({ pokemon, ...props }) => (
       <Stats current={pokemon.individual_defense} type="DEF" />
       <Stats current={pokemon.stats.level} max={79} type="LVL" />
     </div>
-    <div>{pokemon.stats.move_1.prettyName}: {pokemon.stats.move_1.power}, {pokemon.stats.move_1.type}</div>
-    <div>{pokemon.stats.move_2.prettyName}: {pokemon.stats.move_2.power}, {pokemon.stats.move_2.type}</div>
+    <div style={styles.moveContainer}>
+      <Move style={styles.move} {...pokemon.stats.move_1} />
+      <Move style={styles.move} {...pokemon.stats.move_2} />
+    </div>
   </Card>
 );
 
@@ -62,6 +65,15 @@ const styles = {
   },
   subtle: {
     color: '#ccc'
+  },
+  moveContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    padding: '0 15px'
+  },
+  move: {
+    width: '48%',
+    flex: '0 1 48%'
   }
 };
 

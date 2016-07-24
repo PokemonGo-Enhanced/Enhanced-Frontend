@@ -20,13 +20,13 @@ export const loadingSelector = state => state.pokemons.loading;
 export const pokemonSelector = state => state.pokemons.pokemons;
 export const pokemonsByDateSelector = createSelector(
   pokemonSelector,
-  pokemons => sortBy(pokemons, 'pokemon_id', (it) => -it.stats.powerQuotient, 'creation_time_ms')
+  pokemons => pokemons ? sortBy(pokemons, 'pokemon_id', (it) => -it.stats.powerQuotient) : null
 );
 
 export const initialState = {
   loading: false,
   error: null,
-  pokemons: {}
+  pokemons: null
 };
 
 export const pokemonsReducer = handleActions({

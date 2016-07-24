@@ -11,12 +11,16 @@ export class PokemonList extends Component {
     loadingError: PropTypes.string
   };
 
-  componentWillMount() {
-    this.props.fetch();
+  componentDidMount() {
+    if (this.props.pokemons === null) {
+      this.props.fetch();
+    }
   }
 
   renderLoading() {
-    return <Cell>Loading ~</Cell>;
+    return (
+      <Cell width="1">Loading</Cell>
+    );
   }
 
   // hack to use space-between
@@ -30,6 +34,10 @@ export class PokemonList extends Component {
 
   renderPokemons() {
     const pokemons = this.props.pokemons;
+    if (!pokemons) {
+      return this.renderLoading();
+    }
+
     if (pokemons.length === 0) {
       return (<Cell><h4>No Pokemons Fetched</h4></Cell>);
     }
