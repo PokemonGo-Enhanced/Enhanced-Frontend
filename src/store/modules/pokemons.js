@@ -3,6 +3,7 @@ import { createSelector } from 'reselect';
 import http from 'helpers/http';
 import keyBy from 'lodash/keyBy';
 import sortBy from 'lodash/sortBy';
+import { stats } from 'pokemongo-data';
 
 export const loading = createAction('@pokemons/loading');
 export const loaded = createAction('@pokemons/loaded');
@@ -43,7 +44,15 @@ export const pokemonsReducer = handleActions({
     next: (state, { payload }) => ({
       ...state,
       error: null,
-      pokemons: keyBy(payload.data, 'id')
+      pokemons: keyBy(payload.data, pokemon => {
+        // mutate and add extra data
+        if (!pokemon.is_egg) {
+          // TODO: map current player level
+          pokemon.stats = stats.calc(pokemon, 40);
+        }
+
+        return pokemon.id;
+      })
     }),
 
     throw: (state, action) => ({

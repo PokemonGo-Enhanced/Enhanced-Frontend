@@ -10,8 +10,10 @@ export const PokemonWide = ({ pokemon, ...props }) => (
     <div>DEF {pokemon.individual_defense}/15</div>
     <div>STA {pokemon.individual_stamina}/15</div>
     <div>Move 1 {pokemon.move_1}</div>
-    <div>Move 1 {pokemon.move_2}</div>
-    <div>CP {pokemon.cp}</div>
+    <div>Move 2 {pokemon.move_2}</div>
+    <div>CP {pokemon.cp} / {pokemon.stats.maxCombatPower}</div>
+    <div>IV {pokemon.stats.powerQuotient}%</div>
+    <div>IV Influence {pokemon.stats.IVInfluence}</div>
   </Card>
 );
 
