@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import Radium from 'radium';
 import { Grid, Cell } from 'radium-grid';
 import PokemonCell from 'components/PokemonCell';
-import LazyLoad from 'react-lazyload';
 
 export class PokemonList extends Component {
   static propTypes = {
@@ -46,9 +45,7 @@ export class PokemonList extends Component {
     return pokemons
       .map(pokemon => (
         <Cell key={pokemon.id}>
-          <LazyLoad once height={300} offset={400}>
-            <PokemonCell key={pokemon.id} pokemon={pokemon} />
-          </LazyLoad>
+          <PokemonCell key={pokemon.id} pokemon={pokemon} />
         </Cell>
       ));
   }

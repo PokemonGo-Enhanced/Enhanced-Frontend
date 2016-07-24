@@ -3,28 +3,38 @@ import Radium from 'radium';
 import Card from 'material-ui/Card';
 import Stats from 'components/Stats';
 import Move from 'components/Move';
+import LazyLoad from 'react-lazyload';
+import ActionButton from 'components/ActionButton';
 
 export const PokemonWide = ({ pokemon, ...props }) => (
-  <Card style={styles.container} zDepth={0}>
-    <div style={styles.imageContainer}>
-      <img src={pokemon.picture} style={styles.image} />
-    </div>
-    <div style={styles.info}>
-      <h2 style={styles.header}>{pokemon.pokemon_id}</h2>
-      <div>
-        CP <b style={styles.em}>{pokemon.cp}</b>
-        <span style={styles.subtle}> / {pokemon.stats.maxCombatPower}</span>
+  <LazyLoad once height={300} offset={400}>
+    <div style={styles.wrapper}>
+      <Card style={styles.container} zDepth={0}>
+        <div style={styles.imageContainer}>
+          <img src={pokemon.picture} style={styles.image} />
+        </div>
+        <div style={styles.info}>
+          <h2 style={styles.header}>{pokemon.pokemon_id}</h2>
+          <div>
+            CP <b style={styles.em}>{pokemon.cp}</b>
+            <span style={styles.subtle}> / {pokemon.stats.maxCombatPower}</span>
+          </div>
+          <Stats current={pokemon.individual_stamina} type="STA" />
+          <Stats current={pokemon.individual_attack} type="ATK" />
+          <Stats current={pokemon.individual_defense} type="DEF" />
+        </div>
+        <div style={styles.moveContainer}>
+          <Move style={styles.move} {...pokemon.stats.move_1} />
+          <Move style={styles.move} {...pokemon.stats.move_2} />
+        </div>
+      </Card>
+      <div style={styles.actions}>
+        <ActionButton style={styles.action} label="power up" />
+        <ActionButton style={styles.action} label="evolve" />
+        <ActionButton style={styles.action} label="transfer" />
       </div>
-      <Stats current={pokemon.individual_stamina} type="STA" />
-      <Stats current={pokemon.individual_attack} type="ATK" />
-      <Stats current={pokemon.individual_defense} type="DEF" />
-      <Stats current={pokemon.stats.level} max={79} type="LVL" />
     </div>
-    <div style={styles.moveContainer}>
-      <Move style={styles.move} {...pokemon.stats.move_1} />
-      <Move style={styles.move} {...pokemon.stats.move_2} />
-    </div>
-  </Card>
+  </LazyLoad>
 );
 
 PokemonWide.propTypes = {
@@ -32,14 +42,16 @@ PokemonWide.propTypes = {
 };
 
 const styles = {
+  wrapper: {
+    marginBottom: 20
+  },
   container: {
     width: 300,
-    height: 200,
-    marginBottom: 20
+    height: 170
   },
   imageContainer: {
     width: 150,
-    height: 150,
+    height: 130,
     textAlign: 'center',
     display: 'inline-block',
     padding: '20px'
@@ -50,7 +62,7 @@ const styles = {
   },
   info: {
     width: 135,
-    height: 150,
+    height: 130,
     display: 'inline-block',
     verticalAlign: 'top'
   },
@@ -74,6 +86,17 @@ const styles = {
   move: {
     width: '48%',
     flex: '0 1 48%'
+  },
+  actions: {
+    padding: '5px 0',
+    display: 'flex',
+    justifyContent: 'space-between'
+  },
+  action: {
+    width: '32%',
+    flex: '0 1 32%',
+    height: '30px',
+    lineHeight: '30px'
   }
 };
 
