@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import Radium from 'radium';
 import PokemonEgg from 'components/PokemonEgg';
 import Pokemon from 'components/Pokemon';
+import pure from 'recompose/pure';
 
 export const PokemonCell = ({ pokemon, type, ...props }) => (
   <div {...props}>
@@ -21,4 +22,4 @@ PokemonCell.defaultProps = {
   type: 'wide'
 };
 
-export default Radium(PokemonCell);
+export default pure(Radium(PokemonCell));

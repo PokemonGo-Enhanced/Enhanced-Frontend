@@ -32,6 +32,13 @@ module.exports = {
       chunks: true,
       chunkModules: true,
       colors: true
+    },
+    proxy: {
+      enabled: true,
+      options: {
+        host: 'http://localhost:8000',
+        match: /^\/api\/.*/
+      }
     }
   })
 };
