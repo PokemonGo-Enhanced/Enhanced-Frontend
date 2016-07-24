@@ -10,9 +10,9 @@ module.exports = {
   // http://stackoverflow.com/questions/34133808/webpack-ots-parsing-error-loading-fonts/34133809#34133809
   development: (config) => ({
     compiler_public_path: `http://${config.server_host}:${config.server_port}/`,
-    compiler_devtool: 'cheap-eval-source-map',
+    compiler_devtool: 'cheap-module-eval-source-map',
     proxy: {
-      enabled: false,
+      enabled: true,
       options: {
         host: 'http://localhost:8000',
         match: /^\/api\/.*/

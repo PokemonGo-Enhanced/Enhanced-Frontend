@@ -1,6 +1,7 @@
 // We only need to import the modules necessary for initial render
 import CoreLayout from 'layouts/CoreLayout';
 import Main from './main';
+import Inventory from './inventory';
 
 /*  Note: Instead of using JSX, we recommend using react-router
     PlainRoute objects to build route definitions.   */
@@ -8,7 +9,10 @@ import Main from './main';
 export const createRoutes = (store) => ({
   path: '/',
   component: CoreLayout,
-  indexRoute: Main
+  indexRoute: Main,
+  childRoutes: [
+    Inventory
+  ]
 });
 
 /*  Note: childRoutes can be chunked or otherwise loaded programmatically

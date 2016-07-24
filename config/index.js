@@ -42,6 +42,7 @@ const config = {
     colors : true
   },
   compiler_vendor : [
+    'axios',
     'history',
     'react',
     'react-redux',
@@ -78,7 +79,8 @@ Edit at Your Own Risk
 // N.B.: globals added here must _also_ be added to .eslintrc
 config.globals = {
   'process.env'  : {
-    'NODE_ENV' : JSON.stringify(config.env)
+    'NODE_ENV' : JSON.stringify(config.env),
+    'API_URL'  : JSON.stringify(process.env.API_URL || `http://${config.server_host}:${config.server_port}`)
   },
   'NODE_ENV'     : config.env,
   '__DEV__'      : config.env === 'development',
@@ -115,7 +117,8 @@ const base = (...args) =>
 config.utils_paths = {
   base   : base,
   client : base.bind(null, config.dir_client),
-  dist   : base.bind(null, config.dir_dist)
+  dist   : base.bind(null, config.dir_dist),
+  assets : base.bind(null, 'assets')
 };
 
 // ========================================================

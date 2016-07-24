@@ -35,7 +35,8 @@
       "command": "nodemon --exec babel-node bin/server",
       "env": {
         "NODE_ENV": "development",
-        "DEBUG": "app:*"
+        "DEBUG": "app:*",
+        "API_URL": "http://localhost:3000"
       }
     },
     "deploy": {
@@ -84,7 +85,7 @@
     "url": "git+https://github.com/PokemonGo-Enhanced-Frontend.git"
   },
   "dependencies": {
-    "better-npm-run": "0.0.9",
+    "better-npm-run": "0.0.10",
     "debug": "^2.2.0",
     "fs-extra": "^0.30.0",
     "koa": "^2.0.0-alpha.3",
@@ -96,6 +97,7 @@
     "yargs": "^4.7.1"
   },
   "devDependencies": {
+    "axios": "^0.13.1",
     "babel-cli": "^6.10.1",
     "babel-core": "^6.10.4",
     "babel-eslint": "^6.1.2",
@@ -106,7 +108,7 @@
     "babel-preset-react": "^6.11.1",
     "babel-preset-react-optimize": "^1.0.1",
     "babel-preset-stage-0": "^6.3.13",
-    "babel-register": "^6.9.0",
+    "babel-register": "^6.11.5",
     "babel-runtime": "^6.9.2",
     "bluebird": "^3.4.1",
     "chai": "^3.4.1",
@@ -120,13 +122,13 @@
     "enzyme": "^2.4.1",
     "eslint": "^3.0.1",
     "eslint-config-standard": "^5.1.0",
-    "eslint-config-standard-react": "^2.5.0",
-    "eslint-import-resolver-webpack": "^0.3.1",
+    "eslint-config-standard-react": "^3.0.0",
+    "eslint-import-resolver-webpack": "^0.4.0",
     "eslint-plugin-babel": "^3.3.0",
     "eslint-plugin-import": "^1.10.2",
-    "eslint-plugin-promise": "^1.3.2",
+    "eslint-plugin-promise": "^2.0.0",
     "eslint-plugin-react": "^5.2.2",
-    "eslint-plugin-standard": "^1.3.1",
+    "eslint-plugin-standard": "^2.0.0",
     "extract-text-webpack-plugin": "^1.0.0",
     "file-loader": "^0.9.0",
     "history": "^2.1.2",
@@ -136,7 +138,7 @@
     "json": "^9.0.4",
     "json-loader": "^0.5.4",
     "karma": "^1.1.1",
-    "karma-coverage": "^1.1.0",
+    "karma-coverage": "^1.1.1",
     "karma-junit-reporter": "^1.0.0",
     "karma-mocha": "^1.0.1",
     "karma-mocha-reporter": "^2.0.4",
@@ -148,7 +150,8 @@
     "nodemon": "^1.8.1",
     "phantomjs-polyfill": "0.0.2",
     "phantomjs-prebuilt": "^2.1.3",
-    "radium": "^0.17.1",
+    "pokemongo-data": "^1.1.2",
+    "radium": "^0.18.1",
     "radium-grid": "^2.0.1",
     "radium-normalize": "^2.0.3",
     "react": "^15.2.1",
