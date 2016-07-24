@@ -9,7 +9,7 @@ export const ActionButton = ({ style, label, labelStyle, ...props }) => (
     label={label}
     labelStyle={{ ...styles.action, ...labelStyle }}
     backgroundColor="#fff"
-    hoverColor="#ccc"
+    hoverColor="#eee"
   />
 );
 

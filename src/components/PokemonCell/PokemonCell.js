@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import Radium from 'radium';
 import PokemonEgg from 'components/PokemonEgg';
-import Pokemon from 'components/Pokemon';
+import Pokemon from 'containers/Pokemon';
 import pure from 'recompose/pure';
 
 export const PokemonCell = ({ pokemon, type, ...props }) => (

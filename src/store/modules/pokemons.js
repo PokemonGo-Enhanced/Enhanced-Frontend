@@ -15,6 +15,18 @@ export const fetchPokemons = createAction('@pokemons/fetch', () => (dispatch) =>
     .finally(() => dispatch(loaded()));
 });
 
+export const evolve = createAction('@pokemons/evolve', (pokemon) => (dispatch) => {
+  // TODO: add modal confirmation & action
+});
+
+export const powerup = createAction('@pokemons/powerup', (pokemon) => (dispatch) => {
+  // TODO: add modal confirmation & action
+});
+
+export const release = createAction('@pokemons/release', (pokemon) => (dispatch) => {
+  // TODO: add modal confirmation & action
+});
+
 export const errorSelector = state => state.pokemons.error && state.pokemons.error.message;
 export const loadingSelector = state => state.pokemons.loading;
 export const pokemonSelector = state => state.pokemons.pokemons;

@@ -6,7 +6,7 @@ import Move from 'components/Move';
 import LazyLoad from 'react-lazyload';
 import ActionButton from 'components/ActionButton';
 
-export const PokemonWide = ({ pokemon, ...props }) => (
+export const PokemonWide = ({ pokemon, evolve, release, powerup, ...props }) => (
   <LazyLoad once height={300} offset={400}>
     <div style={styles.wrapper}>
       <Card style={styles.container} zDepth={0}>
@@ -29,16 +29,19 @@ export const PokemonWide = ({ pokemon, ...props }) => (
         </div>
       </Card>
       <div style={styles.actions}>
-        <ActionButton style={styles.action} label="power up" />
-        <ActionButton style={styles.action} label="evolve" />
-        <ActionButton style={styles.action} label="transfer" />
+        <ActionButton style={styles.action} onTouchTap={powerup} label="power up" />
+        <ActionButton style={styles.action} onTouchTap={evolve} label="evolve" />
+        <ActionButton style={styles.action} onTouchTap={release} label="transfer" />
       </div>
     </div>
   </LazyLoad>
 );
 
 PokemonWide.propTypes = {
-  pokemon: PropTypes.object.isRequired
+  pokemon: PropTypes.object.isRequired,
+  evolve: PropTypes.func.isRequired,
+  release: PropTypes.func.isRequired,
+  powerup: PropTypes.func.isRequired
 };
 
 const styles = {
