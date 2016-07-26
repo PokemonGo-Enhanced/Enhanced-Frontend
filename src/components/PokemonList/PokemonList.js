@@ -6,7 +6,7 @@ import PokemonCell from 'components/PokemonCell';
 export class PokemonList extends Component {
   static propTypes = {
     fetch: PropTypes.func.isRequired,
-    pokemons: PropTypes.array.isRequired,
+    pokemons: PropTypes.array,
     loading: PropTypes.bool.isRequired,
     loadingError: PropTypes.string
   };
