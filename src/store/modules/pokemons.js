@@ -3,6 +3,7 @@ import { createSelector } from 'reselect';
 import http from 'helpers/http';
 import keyBy from 'lodash/keyBy';
 import sortBy from 'lodash/sortBy';
+import omit from 'lodash/omit';
 import { stats } from 'pokemongo-data';
 
 export const loading = createAction('@pokemons/loading');
@@ -24,20 +25,18 @@ export const powerup = createAction('@pokemons/powerup', (pokemon) => (dispatch)
 });
 
 export const release = createAction('@pokemons/release', (pokemon) => (dispatch) => {
-  return http
-    .post('/rpc/release', {id: pokemon.id})
-    .then(payload => {
-      console.log(payload);
-      return http.get('/pokemon');
-    })
-    .then(payload => payload.data.filter(it => !it.is_egg))
-    .finally(() => dispatch(loaded()));
   // TODO: add modal confirmation & action
+  return http
+    .post('/rpc/release', { id: pokemon.id })
+    .return(pokemon);
 });
+
+export const switchLayout = createAction('@pokemons/switchLayout');
 
 export const errorSelector = state => state.pokemons.error && state.pokemons.error.message;
 export const loadingSelector = state => state.pokemons.loading;
 export const pokemonSelector = state => state.pokemons.pokemons;
+export const layoutSelector = state => state.pokemons.layout;
 export const pokemonsByDateSelector = createSelector(
   pokemonSelector,
   pokemons => pokemons ? sortBy(pokemons, 'pokemon_id', (it) => -it.stats.powerQuotient) : null
@@ -46,7 +45,8 @@ export const pokemonsByDateSelector = createSelector(
 export const initialState = {
   loading: false,
   error: null,
-  pokemons: null
+  pokemons: null,
+  layout: 'wide'
 };
 
 export const pokemonsReducer = handleActions({
@@ -78,6 +78,24 @@ export const pokemonsReducer = handleActions({
       ...state,
       error: action.payload
     })
-  }
+  },
+
+  [release]: {
+    next: (state, { payload }) => ({
+      ...state,
+      error: null,
+      pokemons: omit(state.pokemons, payload.id)
+    }),
+
+    throw: (state, action) => ({
+      ...state,
+      error: action.payload
+    })
+  },
+
+  [switchLayout]: (state, { payload }) => ({
+    ...state,
+    layout: payload
+  })
 
 }, initialState);
