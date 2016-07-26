@@ -24,6 +24,14 @@ export const powerup = createAction('@pokemons/powerup', (pokemon) => (dispatch)
 });
 
 export const release = createAction('@pokemons/release', (pokemon) => (dispatch) => {
+  return http
+    .post('/rpc/release', {id: pokemon.id})
+    .then(payload => {
+      console.log(payload);
+      return http.get('/pokemon');
+    })
+    .then(payload => payload.data.filter(it => !it.is_egg))
+    .finally(() => dispatch(loaded()));
   // TODO: add modal confirmation & action
 });
 
