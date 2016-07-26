@@ -3,6 +3,7 @@ import { createSelector } from 'reselect';
 import http from 'helpers/http';
 import keyBy from 'lodash/keyBy';
 import sortBy from 'lodash/sortBy';
+import omit from 'lodash/omit';
 import { stats } from 'pokemongo-data';
 
 export const loading = createAction('@pokemons/loading');
@@ -24,15 +25,10 @@ export const powerup = createAction('@pokemons/powerup', (pokemon) => (dispatch)
 });
 
 export const release = createAction('@pokemons/release', (pokemon) => (dispatch) => {
+  console.log(pokemon);
   return http
     .post('/rpc/release', {id: pokemon.id})
-    .then(payload => {
-      console.log(payload);
-      return http.get('/pokemon');
-    })
-    .then(payload => payload.data.filter(it => !it.is_egg))
-    .finally(() => dispatch(loaded()));
-  // TODO: add modal confirmation & action
+    .then(response => console.log(response) || {pokemon: pokemon, response});
 });
 
 export const errorSelector = state => state.pokemons.error && state.pokemons.error.message;
@@ -73,6 +69,24 @@ export const pokemonsReducer = handleActions({
         return pokemon.id;
       })
     }),
+
+    throw: (state, action) => ({
+      ...state,
+      error: action.payload
+    })
+  },
+
+  [release]: {
+    next: (state, { payload }) => {
+      // let pokemons = remove(state.pokemons, )
+      console.log(state.pokemons);
+      let pokemons = omit(state.pokemons, payload.pokemon.id);
+      console.log(pokemons);
+      return {
+        ...state,
+        pokemons: pokemons,
+      };
+    },
 
     throw: (state, action) => ({
       ...state,
