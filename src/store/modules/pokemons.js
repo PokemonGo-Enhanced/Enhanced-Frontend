@@ -3,7 +3,6 @@ import { createSelector } from 'reselect';
 import http from 'helpers/http';
 import keyBy from 'lodash/keyBy';
 import sortBy from 'sort-by';
-import omit from 'lodash/omit';
 import { stats } from 'pokemongo-data';
 
 export const loading = createAction('@pokemons/loading');
@@ -28,7 +27,7 @@ export const release = createAction('@pokemons/release', (pokemon) => (dispatch)
   // TODO: add modal confirmation & action
   return http
     .post('/rpc/release', { id: pokemon.id })
-    .return(pokemon);
+    .then(response => ({ pokemon, response }));
 });
 
 export const switchLayout = createAction('@pokemons/switchLayout');
@@ -110,11 +109,17 @@ export const pokemonsReducer = handleActions({
   },
 
   [release]: {
-    next: (state, { payload }) => ({
-      ...state,
-      error: null,
-      pokemons: omit(state.pokemons, payload.id)
-    }),
+    next: (state, { payload }) => {
+      const { pokemons, order } = state;
+
+      // remove pokemon from map
+      delete pokemons[payload.pokemon.id];
+
+      // create new order
+      order.splice(order.indexOf(payload.pokemon), 1);
+
+      return { ...state, order: order.slice(0) };
+    },
 
     throw: (state, action) => ({
       ...state,
