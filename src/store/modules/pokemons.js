@@ -2,8 +2,7 @@ import { createAction, handleActions } from 'redux-actions';
 import { createSelector } from 'reselect';
 import http from 'helpers/http';
 import keyBy from 'lodash/keyBy';
-import sortBy from 'lodash/sortBy';
-import omit from 'lodash/omit';
+import sortBy from 'sort-by';
 import { stats } from 'pokemongo-data';
 
 export const loading = createAction('@pokemons/loading');
@@ -25,24 +24,54 @@ export const powerup = createAction('@pokemons/powerup', (pokemon) => (dispatch)
 });
 
 export const release = createAction('@pokemons/release', (pokemon) => (dispatch) => {
-  console.log(pokemon);
+  // TODO: add modal confirmation & action
   return http
-    .post('/rpc/release', {id: pokemon.id})
-    .then(response => console.log(response) || {pokemon: pokemon, response});
+    .post('/rpc/release', { id: pokemon.id })
+    .then(response => ({ pokemon, response }));
 });
 
+export const switchLayout = createAction('@pokemons/switchLayout');
+export const switchSort = createAction('@pokemons/switchSort');
+
+//
+// Selectors
+// This is for efficient state change handling
+//
 export const errorSelector = state => state.pokemons.error && state.pokemons.error.message;
 export const loadingSelector = state => state.pokemons.loading;
-export const pokemonSelector = state => state.pokemons.pokemons;
-export const pokemonsByDateSelector = createSelector(
+export const pokemonSelector = state => state.pokemons.order;
+export const layoutSelector = state => state.pokemons.layout;
+export const sortBySelector = state => state.pokemons.sortBy;
+
+// sort function helper
+export const sortCreator = (...args) => {
+  const sort = sortBy(...args);
+  return pokemons => pokemons ? pokemons.slice(0).sort(sort) : pokemons;
+};
+
+// sortBy selectors
+export const sortSelectors = {
+  recent: sortCreator('-creation_time_ms', '-stats.powerQuotient', '-cp'),
+  favorite: sortCreator('-favorite', '-cp'),
+  number: sortCreator('-stats.id', '-cp'),
+  hp: sortCreator('-stamina_max', '-cp'),
+  name: sortCreator('pokemon_id', '-stats.powerQuotient', '-cp'),
+  cp: sortCreator('-cp', '-stats.powerQuotient')
+};
+
+export const sortSelector = createSelector(
+  sortBySelector,
   pokemonSelector,
-  pokemons => pokemons ? sortBy(pokemons, 'pokemon_id', (it) => -it.stats.powerQuotient) : null
+  (sortBy, order) => sortSelectors[sortBy](order)
 );
 
 export const initialState = {
   loading: false,
   error: null,
-  pokemons: null
+  pokemons: null,
+  order: null,
+  layout: 'wide',
+  sortBy: 'recent'
 };
 
 export const pokemonsReducer = handleActions({
@@ -61,11 +90,14 @@ export const pokemonsReducer = handleActions({
     next: (state, { payload }) => ({
       ...state,
       error: null,
+      order: payload,
       pokemons: keyBy(payload, pokemon => {
         // mutate and add extra data
         // TODO: map current player level
         pokemon.stats = stats.calc(pokemon, 40);
         pokemon.picture = `pokemon/pkm${pokemon.stats.id}.png`;
+        pokemon.creation_time_ms = +pokemon.creation_time_ms;
+
         return pokemon.id;
       })
     }),
@@ -78,20 +110,31 @@ export const pokemonsReducer = handleActions({
 
   [release]: {
     next: (state, { payload }) => {
-      // let pokemons = remove(state.pokemons, )
-      console.log(state.pokemons);
-      let pokemons = omit(state.pokemons, payload.pokemon.id);
-      console.log(pokemons);
-      return {
-        ...state,
-        pokemons: pokemons,
-      };
+      const { pokemons, order } = state;
+
+      // remove pokemon from map
+      delete pokemons[payload.pokemon.id];
+
+      // create new order
+      order.splice(order.indexOf(payload.pokemon), 1);
+
+      return { ...state, order: order.slice(0) };
     },
 
     throw: (state, action) => ({
       ...state,
       error: action.payload
     })
-  }
+  },
+
+  [switchLayout]: (state, { payload }) => ({
+    ...state,
+    layout: payload
+  }),
+
+  [switchSort]: (state, { payload }) => ({
+    ...state,
+    sortBy: payload
+  })
 
 }, initialState);

@@ -53,7 +53,8 @@ const config = {
     'radium-grid',
     'radium-normalize',
     'bluebird',
-    'react-tap-event-plugin'
+    'react-tap-event-plugin',
+    'sort-by'
   ],
 
   // ----------------------------------
