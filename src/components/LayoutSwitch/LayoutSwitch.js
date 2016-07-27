@@ -10,6 +10,7 @@ const LayoutSwitch = ({ setWide, setSmall, setList, value }) => (
   <div style={styles.root}>
     <IconButton
       style={{ ...styles.radioButton, ...(value === 'wide' && styles.active) }}
+      iconStyle={styles.adjust}
       onTouchTap={setWide}
     >
       <InlineSVG src={LargeGrid} />
@@ -17,6 +18,7 @@ const LayoutSwitch = ({ setWide, setSmall, setList, value }) => (
 
     <IconButton
       style={{ ...styles.radioButton, ...(value === 'small' && styles.active) }}
+      iconStyle={styles.adjust}
       onTouchTap={setSmall}
     >
       <InlineSVG src={SmallGrid} />
@@ -24,7 +26,8 @@ const LayoutSwitch = ({ setWide, setSmall, setList, value }) => (
 
     <IconButton
       style={{ ...styles.radioButton, ...(value === 'list' && styles.active) }}
-      onTouchTap={setSmall}
+      iconStyle={styles.adjust}
+      onTouchTap={setList}
     >
       <InlineSVG src={ListGrid} />
     </IconButton>
@@ -43,10 +46,16 @@ const styles = {
 
   },
   radioButton: {
-    fill: 'black'
+    fill: 'black',
+    borderRadius: '50%'
   },
   active: {
-
+    background: '#ffffff'
+  },
+  adjust: {
+    position: 'relative',
+    top: '-1px',
+    right: '-1px'
   }
 };
 
