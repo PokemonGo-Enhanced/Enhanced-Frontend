@@ -8,7 +8,9 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapActionsToProps = {
-  selectLayout: (e, value) => switchLayout(value)
+  setWide: () => switchLayout('wide'),
+  setSmall: () => switchLayout('small'),
+  setList: () => switchLayout('list')
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(LayoutSwitch);

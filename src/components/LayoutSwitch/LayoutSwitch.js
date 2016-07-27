@@ -1,40 +1,40 @@
 import React, { PropTypes } from 'react';
 import Radium from 'radium';
-import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import InlineSVG from 'svg-inline-react';
 import SmallGrid from '../../../assets/icons/small-grid.svg';
 import LargeGrid from '../../../assets/icons/large-grid.svg';
 import ListGrid from '../../../assets/icons/list.svg';
+import IconButton from 'material-ui/IconButton';
 
-const LayoutSwitch = ({ selectLayout, value }) => (
-  <div style={styles.root} >
-    <RadioButtonGroup name="layout" onChange={selectLayout} valueSelected={value}>
-      <RadioButton
-        value="wide"
-        style={styles.radioButton}
-        checkedIcon={<InlineSVG src={LargeGrid} />}
-        uncheckedIcon={<InlineSVG src={LargeGrid} />}
-      />
+const LayoutSwitch = ({ setWide, setSmall, setList, value }) => (
+  <div style={styles.root}>
+    <IconButton
+      style={{ ...styles.radioButton, ...(value === 'wide' && styles.active) }}
+      onTouchTap={setWide}
+    >
+      <InlineSVG src={LargeGrid} />
+    </IconButton>
 
-      <RadioButton
-        value="compact"
-        style={styles.radioButton}
-        checkedIcon={<InlineSVG src={SmallGrid} />}
-        uncheckedIcon={<InlineSVG src={SmallGrid} />}
-      />
+    <IconButton
+      style={{ ...styles.radioButton, ...(value === 'small' && styles.active) }}
+      onTouchTap={setSmall}
+    >
+      <InlineSVG src={SmallGrid} />
+    </IconButton>
 
-      <RadioButton
-        value="detailed"
-        style={styles.radioButton}
-        checkedIcon={<InlineSVG src={ListGrid} />}
-        uncheckedIcon={<InlineSVG src={ListGrid} />}
-      />
-    </RadioButtonGroup>
+    <IconButton
+      style={{ ...styles.radioButton, ...(value === 'list' && styles.active) }}
+      onTouchTap={setSmall}
+    >
+      <InlineSVG src={ListGrid} />
+    </IconButton>
   </div>
 );
 
 LayoutSwitch.propTypes = {
-  selectLayout: PropTypes.func.isRequired,
+  setWide: PropTypes.func.isRequired,
+  setSmall: PropTypes.func.isRequired,
+  setList: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired
 };
 
@@ -44,6 +44,9 @@ const styles = {
   },
   radioButton: {
     fill: 'black'
+  },
+  active: {
+
   }
 };
 
