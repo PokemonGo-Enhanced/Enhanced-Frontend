@@ -1,40 +1,37 @@
 import React, { PropTypes } from 'react';
-import Radium from 'radium';
+import pure from 'recompose/pure';
 import Card from 'material-ui/Card';
 import Stats from 'components/Stats';
 import Move from 'components/Move';
-import LazyLoad from 'react-lazyload';
 import ActionButton from 'components/ActionButton';
 
 export const PokemonWide = ({ pokemon, evolve, release, powerup, ...props }) => (
-  <LazyLoad once height={300} offset={400}>
-    <div style={styles.wrapper}>
-      <Card style={styles.container} zDepth={0}>
-        <div style={styles.imageContainer}>
-          <img src={pokemon.picture} style={styles.image} />
-        </div>
-        <div style={styles.info}>
-          <h2 style={styles.header}>{pokemon.pokemon_id}</h2>
-          <div>
-            CP <b style={styles.em}>{pokemon.cp}</b>
-            <span style={styles.subtle}> / {pokemon.stats.maxCombatPower}</span>
-          </div>
-          <Stats current={pokemon.individual_stamina} type="STA" />
-          <Stats current={pokemon.individual_attack} type="ATK" />
-          <Stats current={pokemon.individual_defense} type="DEF" />
-        </div>
-        <div style={styles.moveContainer}>
-          <Move style={styles.move} {...pokemon.stats.move_1} />
-          <Move style={styles.move} {...pokemon.stats.move_2} />
-        </div>
-      </Card>
-      <div style={styles.actions}>
-        <ActionButton style={styles.action} onTouchTap={powerup} label="power up" />
-        <ActionButton style={styles.action} onTouchTap={evolve} label="evolve" />
-        <ActionButton style={styles.action} onTouchTap={release} label="transfer" />
+  <div style={styles.wrapper}>
+    <Card style={styles.container} zDepth={0}>
+      <div style={styles.imageContainer}>
+        <img src={pokemon.picture} style={styles.image} />
       </div>
+      <div style={styles.info}>
+        <h2 style={styles.header}>{pokemon.pokemon_id}</h2>
+        <div>
+          CP <b style={styles.em}>{pokemon.cp}</b>
+          <span style={styles.subtle}> / {pokemon.stats.maxCombatPower}</span>
+        </div>
+        <Stats current={pokemon.individual_stamina} type="STA" />
+        <Stats current={pokemon.individual_attack} type="ATK" />
+        <Stats current={pokemon.individual_defense} type="DEF" />
+      </div>
+      <div style={styles.moveContainer}>
+        <Move style={styles.move} {...pokemon.stats.move_1} />
+        <Move style={styles.move} {...pokemon.stats.move_2} />
+      </div>
+    </Card>
+    <div style={styles.actions}>
+      <ActionButton style={styles.action} onTouchTap={powerup} label="power up" />
+      <ActionButton style={styles.action} onTouchTap={evolve} label="evolve" />
+      <ActionButton style={styles.action} onTouchTap={release} label="transfer" />
     </div>
-  </LazyLoad>
+  </div>
 );
 
 PokemonWide.propTypes = {
@@ -103,4 +100,4 @@ const styles = {
   }
 };
 
-export default Radium(PokemonWide);
+export default pure(PokemonWide);

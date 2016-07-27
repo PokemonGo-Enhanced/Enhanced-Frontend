@@ -54,7 +54,8 @@ const config = {
     'radium-normalize',
     'bluebird',
     'react-tap-event-plugin',
-    'sort-by'
+    'sort-by',
+    'react-waypoint'
   ],
 
   // ----------------------------------
