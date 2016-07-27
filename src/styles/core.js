@@ -12,7 +12,7 @@ const coreStyles = (theme) => ({
     fontFamily: 'Work Sans, sans-serif',
     '-webkit-font-smoothing': 'antialiased',
     ' -moz-osx-font-smoothing': 'grayscale',
-    background: '#efefef'
+    background: '#F5F5F5'
   },
   '*, *:before, *:after': {
     boxSizing: 'inherit'

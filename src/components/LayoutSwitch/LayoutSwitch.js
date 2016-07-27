@@ -26,7 +26,7 @@ const LayoutSwitch = ({ setWide, setSmall, setList, value }) => (
 
     <IconButton
       style={{ ...styles.radioButton, ...(value === 'list' && styles.active) }}
-      iconStyle={styles.adjust}
+      iconStyle={{ ...styles.adjust, ...styles.adjustList }}
       onTouchTap={setList}
     >
       <InlineSVG src={ListGrid} />
@@ -46,16 +46,21 @@ const styles = {
 
   },
   radioButton: {
-    fill: 'black',
-    borderRadius: '50%'
+    fill: '#5C5C5C',
+    borderRadius: '50%',
+    border: '1px solid #ECECEC'
   },
   active: {
-    background: '#ffffff'
+    background: '#ffffff',
+    border: '1px solid #f4f4f4'
   },
   adjust: {
     position: 'relative',
     top: '-1px',
     right: '-1px'
+  },
+  adjustList: {
+    right: 0
   }
 };
 
