@@ -15,7 +15,7 @@ export const CoreLayout = ({ children }) => (
 
 const styles = {
   content: {
-    padding: '20px 20px 20px 120px',
+    padding: '20px 20px 20px 90px',
     boxSizing: 'border-box'
   }
 };

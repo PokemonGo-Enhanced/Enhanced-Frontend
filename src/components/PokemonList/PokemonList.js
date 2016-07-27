@@ -79,7 +79,7 @@ export class PokemonList extends Component {
 
 const styles = {
   grid: {
-    justifyContent: 'space-around'
+    justifyContent: 'space-between'
   },
   cell: {
     height: 1,

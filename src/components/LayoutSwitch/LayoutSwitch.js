@@ -6,8 +6,8 @@ import LargeGrid from '../../../assets/icons/large-grid.svg';
 import ListGrid from '../../../assets/icons/list.svg';
 import IconButton from 'material-ui/IconButton';
 
-const LayoutSwitch = ({ setWide, setSmall, setList, value }) => (
-  <div style={styles.root}>
+const LayoutSwitch = ({ style, setWide, setSmall, setList, value }) => (
+  <div style={{ ...styles.root, ...style }}>
     <IconButton
       style={{ ...styles.radioButton, ...(value === 'wide' && styles.active) }}
       iconStyle={styles.adjust}
@@ -38,7 +38,8 @@ LayoutSwitch.propTypes = {
   setWide: PropTypes.func.isRequired,
   setSmall: PropTypes.func.isRequired,
   setList: PropTypes.func.isRequired,
-  value: PropTypes.string.isRequired
+  value: PropTypes.string.isRequired,
+  style: PropTypes.object
 };
 
 const styles = {
@@ -48,7 +49,8 @@ const styles = {
   radioButton: {
     fill: '#5C5C5C',
     borderRadius: '50%',
-    border: '1px solid #ECECEC'
+    border: '1px solid #ECECEC',
+    marginLeft: '10px'
   },
   active: {
     background: '#ffffff',
