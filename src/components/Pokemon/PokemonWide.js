@@ -13,7 +13,10 @@ export const PokemonWide = ({ pokemon, evolve, release, powerup, ...props }) => 
   <div style={styles.wrapper}>
     <Card style={styles.container} zDepth={0}>
       <div style={styles.imageContainer}>
-        <InlineSVG src={pokemon.favorite ? FavoriteIcon : NotFavoriteIcon} style={styles.favorite} />
+        <InlineSVG
+          src={pokemon.favorite ? FavoriteIcon : NotFavoriteIcon}
+          style={{ ...styles.favorite, ...(!pokemon.favorite && styles.notFavorite) }}
+        />
         <img src={pokemon.picture} style={styles.image} />
       </div>
       <div style={styles.info}>
@@ -110,7 +113,11 @@ const styles = {
     height: '20px',
     position: 'absolute',
     top: '10px',
-    left: '10px'
+    left: '10px',
+    fill: '#F8DB43'
+  },
+  notFavorite: {
+    fill: '#CACACA'
   }
 };
 
