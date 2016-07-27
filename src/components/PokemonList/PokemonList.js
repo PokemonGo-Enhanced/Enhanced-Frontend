@@ -105,7 +105,7 @@ export class PokemonList extends Component {
         <Grid
           style={styles.grid}
           cellAlign="center"
-          smallCellWidth="1/2"
+          smallCellWidth="1"
           mediumCellWidth="1/3"
           largeCellWidth="1/4"
           xlargeCellWidth="1/6"
