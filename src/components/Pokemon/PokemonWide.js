@@ -5,10 +5,15 @@ import Stats from 'components/Stats';
 import Move from 'components/Move';
 import ActionButton from 'components/ActionButton';
 
+import InlineSVG from 'svg-inline-react';
+import FavoriteIcon from '../../../assets/icons/favorite.svg';
+import NotFavoriteIcon from '../../../assets/icons/not-favorite.svg';
+
 export const PokemonWide = ({ pokemon, evolve, release, powerup, ...props }) => (
   <div style={styles.wrapper}>
     <Card style={styles.container} zDepth={0}>
       <div style={styles.imageContainer}>
+        <InlineSVG src={pokemon.favorite ? FavoriteIcon : NotFavoriteIcon} style={styles.favorite} />
         <img src={pokemon.picture} style={styles.image} />
       </div>
       <div style={styles.info}>
@@ -54,7 +59,8 @@ const styles = {
     height: 130,
     textAlign: 'center',
     display: 'inline-block',
-    padding: '20px'
+    padding: '20px',
+    position: 'relative'
   },
   image: {
     maxWidth: '100%',
@@ -97,6 +103,14 @@ const styles = {
     flex: '0 1 32%',
     height: '30px',
     lineHeight: '30px'
+  },
+  favorite: {
+    display: 'block',
+    width: '20px',
+    height: '20px',
+    position: 'absolute',
+    top: '10px',
+    left: '10px'
   }
 };
 
