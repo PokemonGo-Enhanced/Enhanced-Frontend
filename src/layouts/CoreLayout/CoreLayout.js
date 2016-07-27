@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import Radium, { StyleRoot } from 'radium';
 import AppBar from 'material-ui/AppBar';
 import Sidebar from 'components/Sidebar';
+import Modal from 'containers/Modal';
 
 export const CoreLayout = ({ children }) => (
   <StyleRoot>
@@ -10,6 +11,7 @@ export const CoreLayout = ({ children }) => (
     <section style={styles.content}>
       {children}
     </section>
+    <Modal />
   </StyleRoot>
 );
 
