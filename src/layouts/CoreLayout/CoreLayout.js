@@ -1,12 +1,12 @@
 import React, { PropTypes } from 'react';
 import Radium, { StyleRoot } from 'radium';
-import AppBar from 'material-ui/AppBar';
+import AppBar from 'containers/AppBar';
 import Sidebar from 'components/Sidebar';
 import Modal from 'containers/Modal';
 
 export const CoreLayout = ({ children }) => (
   <StyleRoot>
-    <AppBar showMenuIconButton={false} />
+    <AppBar />
     <Sidebar />
     <section style={styles.content}>
       {children}
