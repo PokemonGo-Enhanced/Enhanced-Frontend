@@ -94,6 +94,7 @@
     "koa-convert": "^1.2.0",
     "koa-proxy": "^0.6.0",
     "koa-static": "^2.0.0",
+    "webpack-target-electron-renderer": "^0.4.0",
     "yargs": "^4.7.1"
   },
   "devDependencies": {

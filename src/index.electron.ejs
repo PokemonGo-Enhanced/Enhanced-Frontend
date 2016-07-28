@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>PokemonGo Enhanced</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <div id="root" style="height: 100%"></div>
+  <% for(var i=0; i<htmlWebpackPlugin.files.js.length; i++) {%>
+    <script>
+      <% var split = htmlWebpackPlugin.files.js[i].split('/'); %>
+      <% var filename = './' + split[split.length-1]; %>
+      require('<%= filename %>');
+    </script>
+  <% } %>
+</body>
+</html>
+

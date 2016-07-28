@@ -11,7 +11,7 @@ const { __DEV__, __PROD__, __TEST__ } = config.globals;
 debug('Create configuration.');
 const webpackConfig = {
   name: 'client',
-  target: 'web',
+  target: __PROD__ ? 'electron' : 'web',
   devtool: config.compiler_devtool,
   resolve: {
     root: paths.client(),
@@ -44,24 +44,28 @@ webpackConfig.output = {
 // Plugins
 // ------------------------------------
 webpackConfig.plugins = [
-  new webpack.DefinePlugin(config.globals),
-  new HtmlWebpackPlugin({
-    template: paths.client('index.html'),
-    hash: false,
-    favicon: paths.client('static/favicon.ico'),
-    filename: 'index.html',
-    inject: 'body',
-    minify: {
-      collapseWhitespace: true
-    }
-  })
+  new webpack.DefinePlugin(config.globals)
 ];
 
 if (__DEV__) {
   debug('Enable plugins for live development (HMR, NoErrors).');
   webpackConfig.plugins.push(
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.NoErrorsPlugin(),
+    new HtmlWebpackPlugin({
+      template: paths.client('index.html'),
+      hash: false,
+      favicon: paths.client('static/favicon.ico'),
+      title: 'sup fam',
+      filename: 'index.html',
+      inject: false,
+      cache: false,
+      showErrors: true,
+      inject: 'body',
+      minify: {
+        collapseWhitespace: true
+      }
+    })
   );
 } else if (__PROD__) {
   debug('Enable plugins for production (OccurenceOrder, Dedupe & UglifyJS).');
@@ -74,6 +78,14 @@ if (__DEV__) {
         dead_code: true,
         warnings: false
       }
+    }),
+    new HtmlWebpackPlugin({
+      template: paths.client('index.electron.ejs'),
+      title: 'sup fam',
+      filename: 'index.html',
+      inject: false,
+      cache: true,
+      showErrors: true,
     })
   );
 }

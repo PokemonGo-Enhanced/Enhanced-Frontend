@@ -17,7 +17,8 @@ module.exports = {
         host: 'http://localhost:8000',
         match: /^\/api\/.*/
       }
-    }
+    },
+    indexTemplate: 'index.html',
   }),
 
   // ======================================================
@@ -39,6 +40,7 @@ module.exports = {
         host: 'http://localhost:8000',
         match: /^\/api\/.*/
       }
-    }
+    },
+    indexTemplate: 'index.electron.ejs',
   })
 };
