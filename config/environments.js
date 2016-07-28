@@ -13,9 +13,13 @@ module.exports = {
     compiler_devtool: 'cheap-module-eval-source-map',
     proxy: {
       enabled: true,
+      match: /^\/(api|socket\.io)\/.*/,
       options: {
-        host: 'http://localhost:8000',
-        match: /^\/api\/.*/
+        target: 'http://localhost:8000'
+      },
+      options_ws: {
+        target: 'ws://localhost:8000',
+        ws: true
       }
     }
   }),
