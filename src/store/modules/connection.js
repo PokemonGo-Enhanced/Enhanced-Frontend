@@ -5,7 +5,6 @@ import keyBy from 'lodash/keyBy';
 import sortBy from 'sort-by';
 
 export const fetchAuthTicket = createAction('@connection/fetchAuthTicket', () => (dispatch) => {
-  console.log('about to fetch ticket');
   return http
     .get('/authTicket')
     .finally(response => ({ response }));
@@ -19,12 +18,13 @@ export const connectionReducer = handleActions({
   [fetchAuthTicket]: {
     next: (state, { payload }) => ({
       ...state,
-      authTicket: payload.data,
+      authTicket: payload.data || {},
     }),
 
-    throw: (state, action) => ({
+    throw: (state, { payload }) => ({
       ...state,
-      error: action.payload,
+      authTicket: {},
+      // error: action.payload,
     }),
   }
 }, initialState);

@@ -19,8 +19,7 @@ export class EnhancedBar extends Component {
 
   render() {
     const { isActive, connState } = this.props;
-    console.log(isActive);
-    let style = { 'text-align': 'right', color: 'black' };
+    let style = { 'textAlign': 'right', color: 'black' };
 
     return (
       <AppBar showMenuIconButton={false}

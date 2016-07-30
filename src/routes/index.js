@@ -2,6 +2,7 @@
 import CoreLayout from 'layouts/CoreLayout';
 import Main from './main';
 import Inventory from './inventory';
+import Settings from './settings';
 
 /*  Note: Instead of using JSX, we recommend using react-router
     PlainRoute objects to build route definitions.   */
@@ -11,7 +12,8 @@ export const createRoutes = (store) => ({
   component: CoreLayout,
   indexRoute: Main,
   childRoutes: [
-    Inventory
+    Inventory,
+    Settings
   ]
 });
 
