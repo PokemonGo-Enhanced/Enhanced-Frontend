@@ -9,13 +9,6 @@ const debug = require('debug')('app:server');
 const paths = config.utils_paths;
 const app = new Koa();
 
-// Enable koa-proxy if it has been enabled in the config.
-if (config.proxy && config.proxy.enabled) {
-  debug('enabling proxy', config.proxy.options);
-  const proxy = require('koa-proxy');
-  app.use(convert(proxy(config.proxy.options)));
-}
-
 // use gzip
 app.use(compress());
 

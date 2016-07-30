@@ -4,6 +4,7 @@ import { createHistory } from 'history';
 import { useRouterHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import injectTapEventPlugin from 'react-tap-event-plugin';
+import io from 'socket.io-client';
 import createStore from './store/createStore';
 import Application from './containers/Application';
 
@@ -27,6 +28,8 @@ const browserHistory = useRouterHistory(createHistory)({
 // so we need to provide a custom `selectLocationState` to inform
 // react-router-redux of its location.
 const initialState = window.___INITIAL_STATE__;
+const socket = io();
+socket.on('news', data => console.log('Backend msg', data));
 const store = createStore(initialState, browserHistory);
 const history = syncHistoryWithStore(browserHistory, store, {
   selectLocationState: (state) => state.router
